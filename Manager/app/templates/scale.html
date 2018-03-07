@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class='error'>{{error_msg if error_msg != None}}</div>
+
+        <form action='{{url_for('start_scale_policy')}}' method='post'>
+            <div class="form-group">
+                <label>Upper CPU Threshold:</label>
+                <input type="text" name="up_threshold" value="{{up_threshold if up_threshold != None}}">
+            </div>
+
+            <div class="form-group">
+                <label>Lower CPU Threshold:</label>
+                <input type="text" name="down_threshold" value="{{down_threshold if down_threshold != None}}">
+            </div>
+
+            <div class="form-group">
+                <label>Expand Ratio:</label>
+                <input type="text" name="expand_ratio" value="{{expand_ratio if expand_ratio != None}}">
+            </div>
+
+            <div class="form-group">
+                <label>Shrink Ratio:</label>
+                <input type="text" name="shrink_ratio" value="{{shrink_ratio if shrink_ratio != None}}">
+            </div>
+
+            <div class="center">
+                <input type="submit" value="Apply" class="btn btn-primary btn-md">
+            </div>
+        </form>
+
+        <form action='{{ url_for('worker_list') }}' method='get'>
+            <div class="center">
+                <input type="submit" value="Back" class="btn btn-default btn-md">
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

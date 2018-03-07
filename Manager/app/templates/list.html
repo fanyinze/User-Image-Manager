@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+    <form action='{{ url_for('worker_list') }}' method='get' id="refresh"></form>
+    <form action='{{url_for('stop_scale_policy')}}' method='post' id="stop"></form>
+    <div class="btn-group">
+        <button type="submit" form="refresh" value="Submit" class="btn btn-default btn-md">Refresh</button>
+        <button type="submit" form="stop" value="Submit" class="btn btn-danger btn-md">Stop Auto Scale</button>
+    </div>
+
+    <hr>
+
+    <form action="{{url_for('manual_create')}}" method='post' id="create"></form>
+
+    <form action="{{url_for('manual_destroy')}}" method='post' onsubmit='return confirm("Are you sure?")' id="delete"></form>
+
+    <form action="{{url_for('delete_all_data')}}" method='post' onsubmit='return confirm("Are you sure?")' id="clear"></form>
+
+    <form action="{{ url_for('scale_page') }}" method='get' id="scale"></form>
+
+    <div class="btn-group">
+        <button type="submit" form="create" value="Submit" class="btn btn-primary btn-md">Create New Worker</button>
+        <button type="submit" form="delete" value="Submit" class="btn btn-warning btn-md">Terminate a Worker</button>
+        <button type="submit" form="scale" value="Submit" class="btn btn-info btn-md">Config Auto Scale</button>
+        <button type="submit" form="clear" value="Submit" class="btn btn-danger btn-md">Clear Database and S3</button>
+    </div>
+
+
+    <div class="container">
+        <h4>Total number of workers: {{ num_worker }}</h4>
+        <h4>Overall CPU Usage: {{ CPU_avg }}</h4>
+
+        <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Worker ID</th>
+            <th>CPU Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for instance in instances %}
+            <tr>
+                <td>{{ instance['InstanceId'] }}</td>
+                <td>
+                    <div id="cpu_plot{{ loop.index - 1 }}" style="width:300px;height:150px"></div>
+                    <script>
+                        var options = {
+                            series: {
+                                lines: { show: true },
+                                points: { show: true }
+                            }
+                        };
+                        $.plot($("#cpu_plot{{ loop.index - 1 }}"), [ {{ cpu_stats_lists[loop.index - 1] }} ] , options);
+                    </script>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

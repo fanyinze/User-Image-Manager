@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="center">
+    <form action="{{ url_for('worker_list') }}" method='get' id="enter"></form>
+    <button type="submit" form="enter" value="Submit" class="btn btn-primary btn-md">Enter</button>
+</div>
+{% endblock %}
