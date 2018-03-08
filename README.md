@@ -1,1 +1,17 @@
-# User-Image-Manager
+<h1> User Image Manager
+<h2>Introduction:
+<h4>User Image Manager is an AWS based elastic web application. It has two interfaces: Worker and Manager. 
+<br>
+<br>Worker has one or more EC2 instances that dealing with users requests, including user accounts' registration, image uploading, and store actual image files on AWS S3. 
+<br>
+<br>Manager is a stand-alone EC2 instance that monitors each worker instance's CPU utilization, increase/decrease total number of workers, evenly distributed all traffics across workers using Elastic Load Balancing, stores accounts info, and can reset both local database and S3.
+<br>
+<h2>Project Specification: 
+<h4>Operating System: Windows, MacOS and Linux
+<br>
+<br>Design Languages: Python 3.5, HTML5
+<br>
+<br>Libraries and Frameworks: Flask, MySQL-Connector, Boto3, ImageMagick, Gunicorn, Bootstrap
+<br>
+<br>AWS Services: EC2, S3, Load Balancing
+<h4>(*Note: Due to account safety concerns, all AWS credential related info (IAM Role, Group ID, Security ID, etc.) has been removed.)
